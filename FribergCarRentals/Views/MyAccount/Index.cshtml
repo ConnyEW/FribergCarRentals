@@ -1,0 +1,159 @@
+﻿@using FribergCarRentals.Enums
+@model FribergCarRentals.ViewModels.UserViewModel
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">My Account</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-8">
+            <dl class="row">
+                <dt class="col-lg-4 fs-5">First name:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.FirstName)</dd>
+
+                <dt class="col-lg-4 fs-5">Last name:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.LastName)</dd>
+
+                <dt class="col-lg-4 fs-5">Phone number:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                <dt class="col-lg-4 fs-5">Email:</dt>
+                <dd class="col-lg-8 fs-5">@Model.Email</dd>
+
+                <dt class="col-lg-4 fs-5">Date joined:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.CreatedOn)</dd>
+            </dl>
+            <div class="row">
+                <div class="col-lg-6">
+                    <a class="btn btn-standard fs-6 w-75" asp-action="Edit" asp-route-id="@Model.UserId">Edit Details</a>
+                </div>
+                <div class="col-lg-6">
+                    <a class="btn btn-standard fs-6 w-75" asp-action="ChangePassword" asp-route-id="@Model.UserId">Change Password</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="d-inline justify-content-center">
+        <h2 class="content-title display-5">My Rentals</h2>
+        <hr class="content-hr">
+    </div>
+
+    <h5>Upcoming</h5>
+    @if (Model.Rentals != null && Model.Rentals.Any(r => r.RentalStatus == RentalStatus.Pending))
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price (kr)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rental in Model.Rentals.Where(r => r.RentalStatus == RentalStatus.Pending))
+                    {
+                        <tr>
+                            <td>@rental.CarName</td>
+                            <td>@rental.RentalStart</td>
+                            <td>@rental.RentalEnd</td>
+                            <td>@rental.Price</td>
+                            <td>
+                                <a asp-action="CancelRental" asp-controller="UserRental" asp-route-id="@rental.RentalId" class="btn btn-standard btn-negative fs-6 py-0 px-2 m-0">Cancel</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>You have no upcoming rentals.</p>
+    }
+
+    <h5>Ongoing</h5>
+    
+    @if (Model.Rentals != null && Model.Rentals.Any(r => r.RentalStatus == RentalStatus.InProgress))
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price (kr)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rental in Model.Rentals.Where(r => r.RentalStatus == RentalStatus.InProgress))
+                    {
+                        <tr>
+                            <td>@rental.CarName</td>
+                            <td>@rental.RentalStart</td>
+                            <td>@rental.RentalEnd</td>
+                            <td>@rental.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>You have no ongoing rentals.</p>
+    }
+
+    <h5>Past rentals</h5>
+    @if (Model.Rentals != null && Model.Rentals.Any(r => r.RentalStatus == RentalStatus.Completed))
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price (SEK)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rental in Model.Rentals.Where(r => r.RentalStatus == RentalStatus.Completed || r.RentalStatus == RentalStatus.Cancelled))
+                    {
+                        <tr>
+                            <td>@rental.CarName</td>
+                            <td>@rental.RentalStart</td>
+                            <td>@rental.RentalEnd</td>
+                            <td>
+                                @if (rental.RentalStatus == RentalStatus.Cancelled)
+                                {
+                                    @rental.Price <span>(cancelled)</span>
+                                }
+                                else
+                                {
+                                    @rental.Price
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+    else
+    {
+        <p>You have no past rentals.</p>
+    }
+
+</main>

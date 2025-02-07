@@ -1,0 +1,69 @@
+﻿@using FribergCarRentals.Helpers
+@model FribergCarRentals.ViewModels.CarViewModel
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Car Details</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-8">
+            <dl class="row">
+                <dt class="col-lg-4 fs-5">Car ID:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.CarId)</dd>
+
+                <dt class="col-lg-4 fs-5">Name:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-lg-4 fs-5">Model year:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.ModelYear)</dd>
+
+                <dt class="col-lg-4 fs-5">Daily rate:</dt>
+                <dd class="col-lg-8 fs-5">@Model.DailyRate SEK</dd>
+
+                <dt class="col-lg-4 fs-5">Fuel type:</dt>
+                <dd class="col-lg-8 fs-5">@Model.FuelType.GetDisplayName()</dd>
+
+                <dt class="col-lg-4 fs-5">4WD?</dt>
+                <dd class="col-lg-8 fs-5">@(Model.Is4x4 ? "Yes" : "No")</dd>
+
+                <dt class="col-lg-4 fs-5">Transmission:</dt>
+                <dd class="col-lg-8 fs-5">@Model.Transmission.GetDisplayName()</dd>
+
+                <dt class="col-lg-4 fs-5">Image:</dt>
+                <dd class="col-lg-8 fs-5">
+                    @if (!string.IsNullOrEmpty(Model.ImageLink)){
+                        <a href="@Model.ImageLink" target="_blank">Link</a>
+                    }
+                    else {
+                        <span>(no image available)</span>
+                    }
+                </dd>
+
+                <dt class="col-lg-4 fs-5">Is active?</dt>
+                <dd class="col-lg-8 fs-5">@(Model.IsActive ? "Yes" : "No")</dd>
+
+                <dt class="col-lg-4 fs-5">Description:</dt>
+                <dd class="col-lg-8 fs-5">@Model.Description</dd>
+            </dl>
+
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Edit" asp-route-id="@Model?.CarId" class="btn btn-standard w-100 fs-6">Edit</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Index" class="btn btn-standard fs-6 w-100">Back</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Delete" asp-route-id="@Model?.CarId" class="btn btn-standard btn-negative w-100 fs-6"><i class="fa-solid fa-trash-can"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

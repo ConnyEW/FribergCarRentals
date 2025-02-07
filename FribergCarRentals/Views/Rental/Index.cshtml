@@ -1,0 +1,106 @@
+﻿@using FribergCarRentals.Helpers
+@model IEnumerable<FribergCarRentals.ViewModels.RentalViewModel>
+
+
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Rentals</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="User" class="btn btn-standard fs-6 w-100">Users</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="List" asp-controller="Admin" class="btn btn-standard fs-6 w-100">Admins</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Rental" class="btn btn-standard fs-6 w-100">Rentals</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Car" class="btn btn-standard fs-6 w-100">Cars</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Log" class="btn btn-standard fs-6 w-100">Logs</a>
+        </div>
+    </div>
+
+    <hr class="content-hr">
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="userDesc" class="text-link px-1">&#x2193;</a> User <a asp-action="Index" asp-route-sortOrder="userAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="carDesc" class="text-link px-1">&#x2193;</a> Car <a asp-action="Index" asp-route-sortOrder="carAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="rentalStatusDesc" class="text-link px-1">&#x2193;</a> Status <a asp-action="Index" asp-route-sortOrder="rentalStatusAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="rentalStartDesc" class="text-link px-1">&#x2193;</a> Start <a asp-action="Index" asp-route-sortOrder="rentalStartAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="rentalEndDesc" class="text-link px-1">&#x2193;</a> End <a asp-action="Index" asp-route-sortOrder="rentalEndAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="priceDesc" class="text-link px-1">&#x2193;</a> Price <a asp-action="Index" asp-route-sortOrder="priceAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentalId)
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarName)
+                        </td>
+                        <td>
+                            @item.RentalStatus.GetDisplayName()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentalStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentalEnd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.RentalId" class="btn btn-standard fs-6 py-0 px-2 m-0">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</main>

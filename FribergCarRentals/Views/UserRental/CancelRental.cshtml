@@ -1,0 +1,42 @@
+﻿@model FribergCarRentals.ViewModels.RentalViewModel
+
+<main class="main-content container my-5">
+
+    <h5 class="display-6 text-center my-5">Are you sure you want to cancel your rental?</h5>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-8">
+            <dl class="row">
+                <dt class="col-lg-4 fs-5">Start date:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.RentalStart)</dd>
+
+                <dt class="col-lg-4 fs-5">End date:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.RentalEnd)</dd>
+
+                <dt class="col-lg-4 fs-5">Car:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.CarName)</dd>
+
+                <dt class="col-lg-4 fs-5">Email:</dt>
+                <dd class="col-lg-8 fs-5">@Model.Email</dd>
+            </dl>
+
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <form asp-action="CancelRentalPost" method="post" asp-route-id="@Model.RentalId">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="submit" value="Cancel" class="btn btn-standard btn-warning fs-6 w-100" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Index" asp-controller="MyAccount" asp-route-id="@Model.UserId" class="btn btn-standard fs-6 w-100">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+

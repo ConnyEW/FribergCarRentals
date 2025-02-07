@@ -1,0 +1,112 @@
+﻿@using FribergCarRentals.Helpers
+@model FribergCarRentals.ViewModels.CarViewModel
+@{
+    var unavailableDates = Model.UnavailableDates;
+}
+@section Styles {
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+@section BodyScripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/rentCar.js"></script>
+    <script>let disabledDates = @Html.Raw(unavailableDates);</script>
+}
+
+
+
+
+<main class="main-content container my-5">
+
+    <div class="d-inline justify-content-center">
+        <h2 class="content-title display-2">Rent a Car!</h2>
+        <hr class="content-hr">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-7">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 g-0 m-0 px-4">
+                    @if (string.IsNullOrEmpty(Model.ImageLink))
+                    {
+                        <img src="/assets/logo.png" class="card-img-top" alt="@Model.Name" crossorigin="anonymous">
+                    }
+                    else
+                    {
+                        <img src="@Model.ImageLink" onerror="this.onerror=null; this.src='/assets/logo.png';" class="img-fluid" alt="@Model.Name" crossorigin="anonymous">
+                    }
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="d-flex align-items-center col-12 col-lg-6 p-0 g-0">
+                    <div class="container">
+                        <dl class="row dl fs-5">
+                            <dt class="col-12">Car:</dt>
+                            <dd class="col-12">@Model.Name</dd>
+
+                            <dt class="col-12">Model year:</dt>
+                            <dd class="col-12">@Model.ModelYear</dd>
+
+                            <dt class="col-12">Daily rate:</dt>
+                            <dd class="col-12">@Model.DailyRate SEK</dd>
+
+                            <dt class="col-12">Transmission:</dt>
+                            <dd class="col-12">@Model.Transmission.GetDisplayName()</dd>
+
+                            <dt class="col-12">Fuel type:</dt>
+                            <dd class="col-12">@Model.FuelType.GetDisplayName()</dd>
+
+                            <dt class="col-12">4WD:</dt>
+                            <dd class="col-12">@(Model.Is4x4 ? "Yes" : "No")</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 py-3 g-0 my-4 px-4">
+                        <h4>Description</h4>
+                            <p class="fs-5">
+                                @if (string.IsNullOrEmpty(Model.Description))
+                                {
+                                    <i>No description available.</i>
+                                }
+                                else
+                                {
+                                    @Model.Description
+                                }
+                            </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-5">
+            <div class="row">
+                <label for="startDateDiv" class="text-center fs-5 my-2">Start date:</label>
+                <div class="col-12 d-flex justify-content-center">
+                    <div id="startDateDiv"></div>
+                </div>
+            </div>
+            <div class="row">
+                <label for="endDateDiv" class="text-center fs-5 my-2">End date:</label>
+                <div class="col-12 d-flex justify-content-center">
+                    <div id="endDateDiv"></div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-6 d-flex justify-content-center">
+                    <form action="RentCar" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="startDateForm" name="RentalStart" />
+                        <input type="hidden" id="endDateForm" name="RentalEnd" />
+                        <input type="hidden" name="CarId" value="@Model.CarId" />
+                        <input type="submit" value="Rent!" class="btn btn-standard btn-positive w-100" />
+                        <a class="btn btn-standard w-100" asp-action="Index" asp-controller="Home">Back</a>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+

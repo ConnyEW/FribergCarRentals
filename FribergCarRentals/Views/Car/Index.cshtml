@@ -1,0 +1,92 @@
+﻿@model IEnumerable<FribergCarRentals.ViewModels.CarViewModel>
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Cars</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="User" class="btn btn-standard fs-6 w-100">Users</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="List" asp-controller="Admin" class="btn btn-standard fs-6 w-100">Admins</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Rental" class="btn btn-standard fs-6 w-100">Rentals</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Car" class="btn btn-standard fs-6 w-100">Cars</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Log" class="btn btn-standard fs-6 w-100">Logs</a>
+        </div>
+    </div>
+
+    <hr class="content-hr">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 d-flex justify-content-center">
+                    <a class="btn btn-standard fs-6 w-75" asp-action="Create">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="nameDesc" class="text-link px-1">&#x2193;</a> Name <a asp-action="Index" asp-route-sortOrder="nameAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="modelYearDesc" class="text-link px-1">&#x2193;</a> Model year <a asp-action="Index" asp-route-sortOrder="modelYearAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="dailyRateDesc" class="text-link px-1">&#x2193;</a> Daily rate <a asp-action="Index" asp-route-sortOrder="dailyRateAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="isActiveDesc" class="text-link px-1">&#x2193;</a> Is active <a asp-action="Index" asp-route-sortOrder="isActiveAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="align-items-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModelYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DailyRate)
+                        </td>
+                        <td>
+                            @(item.IsActive ? "Yes" : "No")
+                        </td>
+                        <td>
+                            <a class="btn btn-standard fs-6 py-0 px-2 m-0" asp-action="Details" asp-route-id="@item.CarId">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</main>
+

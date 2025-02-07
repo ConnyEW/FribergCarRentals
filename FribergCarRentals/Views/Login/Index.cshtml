@@ -1,0 +1,31 @@
+﻿@model FribergCarRentals.ViewModels.LoginViewModel
+
+<main class="container d-flex flex-grow-1 justify-content-center align-items-center my-5 ">
+    <div class="container login">
+        <div class="row">
+            <div>
+                <h6 class="display-6">Login</h6>
+            </div>
+            <div>
+                <label id="redirectMessage" class="text-danger">@ViewBag.Message</label>
+                <form asp-action="LogIn" method="post">
+                    @Html.AntiForgeryToken()
+                    <h5 class="mt-2">Email</h5>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input asp-for="Email" class="input-text w-100">
+                    <h5 class="mt-2">Password</h5>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input asp-for="Password" class="input-password w-100">
+                    <div>
+                        <button type="submit" class="btn btn-standard w-100 my-4 mx-auto">Log In</button>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </form>
+                <h5 class="mt-2">Don't have an account?</h5>
+                <h5><a asp-action="CreateAccount" class="text-link">Click here to sign up!</a></h5>
+            </div>
+        </div>
+    </div>
+</main>
+
+

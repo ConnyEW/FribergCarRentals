@@ -1,0 +1,70 @@
+﻿@model FribergCarRentals.ViewModels.CarViewModel
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Edit Car</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-6 col-lg-4 col-xl-3">
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+                <div class="form-group">
+                    <h5 class="mt-2">Car ID</h5>
+                    <input asp-for="CarId" class="input-text" readonly />
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Name</h5>
+                    <input asp-for="Name" class="input-text" readonly />
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Model year</h5>
+                    <input asp-for="ModelYear" class="input-text" readonly />
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Daily rate</h5>
+                    <input asp-for="DailyRate" class="input-text" />
+                    <span asp-validation-for="DailyRate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Fuel type</h5>
+                    <select asp-for="FuelType" asp-items="@ViewBag.FuelType" class="input-text" disabled></select>
+                </div>
+                <div class="form-group mx-0 my-2 px-0">
+                    <h5 class="mt-2">4WD: <input class="input-checkbox" asp-for="Is4x4" disabled /></h5>
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Transmission</h5>
+                    <select asp-for="Transmission" asp-items="@ViewBag.Transmission" class="input-text" disabled></select>
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Image link</h5>
+                    <input asp-for="ImageLink" class="input-text" />
+                    <span asp-validation-for="ImageLink" class="text-danger"></span>
+                </div>
+                <div class="form-group mx-0 my-2 px-0">
+                    <h5 class="mt-2">Is active: <input class="input-checkbox" asp-for="IsActive" /></h5>
+                </div>
+                <div class="form-group">
+                    <h5 class="mt-2">Description</h5>
+                    <textarea asp-for="Description" class="input-text"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-center p-0">
+                        <input type="submit" value="Save" class="btn btn-standard btn-positive fs-6 w-100" />
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-center p-0">
+                        <a class="btn btn-standard fs-6 w-100" asp-action="Details" asp-route-id="@Model.CarId">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+

@@ -1,0 +1,194 @@
+﻿@model FribergCarRentals.ViewModels.HomeViewModel
+@using FribergCarRentals.Helpers
+
+
+<section id="lp">
+    <div class="lp-container">
+
+        <div class="row d-flex justify-content-center align-items-center mx-3 p-0">
+            <div class="lp-img-container col-12 col-sm-6 p-0">
+                <img src="https://static.bonniernews.se/images/69/dc/69dc3ac2a7bf4d3ea1daa8a22192f6e2/annan/2560.jpg"
+                     class="img-fluid" alt="">
+                <div class="lp-img-text">
+                    <h2 class="display-5 display-sm-6 display-md-3 display-lg-4">Rent your car today!</h2>
+                </div>
+            </div>
+            <div class="lp-logo-container d-flex justify-content-center col-12 col-sm-6 p-0">
+                <img src="~/assets/logo.png" class="img-fluid" alt="FribergCarRentals logo">
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center lp-review p-5">
+            <div id="carousel" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <figure>
+                            <blockquote class="blockquote">
+                                <p>
+                                    Highly recommend! They had great options, affordable prices, and everything was handled quickly and
+                                    professionally."
+                                </p>
+                            </blockquote>
+                            <figcaption class="blockquote-footer">Very satisfied customer, 2025.</figcaption>
+                        </figure>
+                    </div>
+                    <div class="carousel-item">
+                        <figure>
+                            <blockquote class="blockquote">
+                                <p>
+                                    Fantastic service! The booking was easy, the car was spotless, and the staff was super friendly.
+                                    I'll definitely rent here again!
+                                </p>
+                            </blockquote>
+                            <figcaption class="blockquote-footer">Very satisfied customer, 2025.</figcaption>
+                        </figure>
+                    </div>
+                    <div class="carousel-item">
+                        <figure>
+                            <blockquote class="blockquote">
+                                <p>
+                                    Best car rental experience I've ever had! Quick, professional, and the car exceeded my
+                                    expectations.
+                                </p>
+                            </blockquote>
+                            <figcaption class="blockquote-footer">Very satisfied customer, 2025.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<main class="main-content container my-5">
+
+    <div class="popular-picks">
+        <div>
+            <h2 class="content-title display-2">Customer Favorites</h2>
+            <hr class="content-hr">
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            @foreach (var item in Model.PopularCars)
+            {
+                <div class="card col-12 col-sm-6 col-md-4 col-lg-3 card-car">
+                    @if (string.IsNullOrEmpty(item.ImageLink))
+                    {
+                        <img src="/assets/logo.png" class="card-img-top" alt="@item.Name" crossorigin="anonymous">
+                    }
+                    else
+                    {
+                        <img src="@item.ImageLink" onerror="this.onerror=null; this.src='/assets/logo.png';" class="card-img-top" alt="@item.Name" crossorigin="anonymous">
+
+                    }
+                    <div class="card-body">
+                        <h4 class="card-title">@item.Name</h4>
+                        <hr>
+                        <div class="card-text d-flex justify-content-around">
+                            <div>@item.ModelYear</div>
+                            <div><b>|</b></div>
+                            <div>@item.Transmission.GetDisplayName()</div>
+                            <div><b>|</b></div>
+                            <div>
+                                4x4: <i class="fa-solid @((item.Is4x4 ? "fa-check" : "fa-xmark"))" style="color: @(item.Is4x4 ? "green" : "red")"></i>
+                            </div>
+                            <div><b>|</b></div>
+                            <div><i class="fa-solid fa-gas-pump"></i> @item.FuelType.GetDisplayName()</div>
+                        </div>
+                        <hr>
+                        <h5 class="card-title">@item.DailyRate SEK/day</h5>
+                        <a asp-action="RentCar" asp-controller="UserRental" asp-route-id="@item.CarId" class="btn btn-primary stretched-link">Rent!</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    <div class="container our-cars">
+        <div>
+            <h2 class="content-title display-2">Our Cars</h2>
+            <hr class="content-hr">
+        </div>
+
+
+        <div class="row d-flex justify-content-center">
+
+            @foreach (var item in Model.Cars)
+            {
+                <div class="card col-12 col-sm-6 col-md-4 col-lg-3 card-car">
+                    @if (string.IsNullOrEmpty(item.ImageLink)){
+                        <img src="/assets/logo.png" class="card-img-top" alt="@item.Name" crossorigin="anonymous">
+                    }
+                    else
+                    {
+                        <img src="@item.ImageLink" onerror="this.onerror=null; this.src='/assets/logo.png';" class="card-img-top" alt="@item.Name" crossorigin="anonymous">
+
+                    }
+                    <div class="card-body">
+                        <h4 class="card-title">@item.Name</h4>
+                        <hr>
+                        <div class="card-text d-flex justify-content-around">
+                            <div>@item.ModelYear</div>
+                            <div><b>|</b></div>
+                            <div>@item.Transmission.GetDisplayName()</div>
+                            <div><b>|</b></div>
+                            <div>
+                                4x4: <i class="fa-solid @((item.Is4x4 ? "fa-check" : "fa-xmark"))" style="color: @(item.Is4x4 ? "green" : "red")"></i>
+                            </div>
+                            <div><b>|</b></div>
+                            <div><i class="fa-solid fa-gas-pump"></i> @item.FuelType.GetDisplayName()</div>
+                        </div>
+                        <hr>
+                        <h5 class="card-title">@item.DailyRate SEK/day</h5>
+                        <a asp-action="RentCar" asp-controller="UserRental" asp-route-id="@item.CarId" class="btn btn-primary stretched-link">Rent!</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div>
+            <h2 class="content-title display-2">Our Promises</h2>
+            <hr class="content-hr">
+        </div>
+        <div class="mx-auto w-75">
+            <h3 class="display-6 mt-3">Unlimited kilometers</h3>
+            <p class="fs-5">Drive worry-free and explore at your own pace with unlimited kilometers!</p>
+
+            <h3 class="display-6 mt-3">Exclusive offers</h3>
+            <p class="fs-5">Repeat customers get 10% off on future rentals!</p>
+
+            <h3 class="display-6 mt-3">No cancellation fee</h3>
+            <p class="fs-5">
+                Free cancellation up until 23:59 on the day two days before your rental starts. <br>
+                <span class="fs-6 fst-italic">Note: We cancel rentals and charge customers if keys are not claimed by the end of the first rental day. Cancellation fee is equal to the daily rate of the car.</span>
+            </p>
+
+            <h3 class="display-6 mt-3">Customer support</h3>
+            <p class="fs-5">You can reach us by phone every day of the week between 08-17. You can also send us an email if you prefer. Check out the contact details below!</p>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div class="d-flex flex-wrap justify-content-center">
+            <img style="height: 72px;" class="m-2" src="https://images.ctfassets.net/wmdwnw6l5vg5/5PtCccb5O06iU2tULwCLeZ/3d60f1e474f2a3ced43ef2bbcde12940/travel_award.png_h_250" alt="">
+            <img style="height: 72px;" class="m-2" src="https://images.ctfassets.net/wmdwnw6l5vg5/1EWRWAR8n6zUBGdmPTSt5x/d56d8c6f186ce50b09ba1924d452e85b/new-award-trip-advisor.png" alt="">
+            <img style="height: 72px;" class="m-2" src="https://www.worldtravelawards.com/images/shields/web/wta-winner-shield-2020-share.png?v=1574425287" alt="">
+            <img style="height: 72px;" class="m-2" src="https://static.tacdn.com/img2/tc/2024/TC_2024_botb_badge.png" alt="">
+        </div>
+    </div>
+
+</main>

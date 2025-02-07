@@ -1,0 +1,83 @@
+﻿@model FribergCarRentals.ViewModels.RentalViewModel
+
+
+<main class="main-content container my-5">
+
+    <div class="d-inline justify-content-center">
+        <h2 class="content-title display-2">Rental Confirmation</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="container">
+
+        <h4 class="my-4 text-center">Are you sure you want to rent this car for the chosen time period?</h4>
+
+        <div class="confirm-rental-img d-flex justify-content-center align-items-center my-4">
+            @if (string.IsNullOrEmpty(Model.ImageLink))
+            {
+                <img src="/assets/logo.png" class="card-img-top" alt="@Model.CarName" crossorigin="anonymous">
+            }
+            else
+            {
+                <img src="@Model.ImageLink" onerror="this.onerror=null; this.src='/assets/logo.png';" class="img-fluid" alt="@Model.CarName" crossorigin="anonymous">
+
+            }
+        </div>
+
+        <div class="row justify-content-center text-center">
+            <div class="col-12 col-md-6">
+                <dl class="row dl fs-5 border-0 p-0 m-0">
+                    <div class="col-12 col-sm-6">
+                        <dt class="col-12">Car:</dt>
+                        <dd class="col-12">@Model.CarName</dd>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <dt class="col-12">Price:</dt>
+                        <dd class="col-12">
+                            @if(Model.Price == Model.DiscountedPrice){
+                                <span>@Model.Price SEK</span>
+                            }
+                            else {
+                                <span style="text-decoration: line-through;">@Model.Price</span> <b>@Model.DiscountedPrice.ToString("F2") SEK</b>
+                            }
+                            
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="row dl fs-5 border-0 p-0 m-0">
+                    <div class="col-12 col-sm-6">
+                        <dt class="col-12">Start date:</dt>
+                        <dd class="col-12">@Model.RentalStart</dd>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <dt class="col-12">End date:</dt>
+                        <dd class="col-12">@Model.RentalEnd</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <p class="m-4">By clicking 'Confirm', you agree to proceed with your vehicle rental as specified in our terms and conditions for the duration of the selected rental period. Once confirmed, your booking will be finalized and the vehicle will be reserved for you. Please ensure all details are correct before proceeding. You are free to cancel your rental at any time. If your rental is cancelled less than a day prior to the rental start date you will be charge a fee equal to the daily rate of the car. If you cancel your rental more than a day in advance you will not be charged any fees. For more information, review our <a href="#" class="text-link">Terms and Conditions</a>.</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <form asp-action="ConfirmRentalPost" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="CarId" />
+                <input type="hidden" asp-for="RentalStart" />
+                <input type="hidden" asp-for="RentalEnd" />
+                <input type="hidden" asp-for="DiscountedPrice" />
+                <input type="submit" value="Confirm" class="btn btn-standard btn-positive" />
+                <a class="btn btn-standard btn-negative" asp-action="RentCar" asp-route-id="@Model.CarId">Cancel</a>
+            </form>
+        </div>
+
+    </div>
+
+</main>
+
+

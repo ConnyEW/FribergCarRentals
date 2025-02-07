@@ -1,0 +1,34 @@
+﻿@model FribergCarRentals.ViewModels.CarViewModel
+
+<main class="main-content container my-5">
+
+    <h5 class="display-6 text-center my-5">Are you sure you want to delete this car?</h5>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-8">
+            <dl class="row">
+                <dt class="col-lg-4 fs-5">Car ID:</dt>
+                <dd class="col-lg-8 fs-5">@Html.DisplayFor(model => model.CarId)</dd>
+
+                <dt class="col-lg-4 fs-5">Name:</dt>
+                <dd class="col-lg-8 fs-5">@Model.Name</dd>
+            </dl>
+
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <form asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="CarId" />
+                        <input type="submit" value="Confirm" class="btn btn-standard btn-warning fs-6 w-100" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Details" asp-route-id="@Model.CarId" class="btn btn-standard fs-6 w-100">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

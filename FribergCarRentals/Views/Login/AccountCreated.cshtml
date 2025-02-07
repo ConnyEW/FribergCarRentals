@@ -1,0 +1,17 @@
+﻿@model FribergCarRentals.ViewModels.UserViewModel
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Success!</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="container text-center">
+        <p>Your account @Model.Email has been successfully created.</p>
+        <a class="text-link" asp-action="ProceedToProfile" asp-controller="Login" asp-route-id="@Model.UserId">Click to proceed.</a>
+    </div>
+
+</main>
+
+

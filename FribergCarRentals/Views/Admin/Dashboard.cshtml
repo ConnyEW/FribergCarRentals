@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Dashboard</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="User" class="btn btn-standard fs-6 w-100">Users</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="List" asp-controller="Admin" class="btn btn-standard fs-6 w-100">Admins</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Rental" class="btn btn-standard fs-6 w-100">Rentals</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Car" class="btn btn-standard fs-6 w-100">Cars</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Log" class="btn btn-standard fs-6 w-100">Logs</a>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center my-4">
+        <div class="col-10 col-sm-8 col-xl-6">
+            <dl class="row dashboard-stats">
+                <dt class="col-md-6 fs-5">Total revenue:</dt>
+                <dd class="col-md-6 fs-5"><span id="totalRevenue">@ViewBag.Revenue</span> SEK</dd>
+
+                <dt class="col-md-6 fs-5">Users registered:</dt>
+                <dd class="col-md-6 fs-5"><span id="numberUsers">@ViewBag.Users</span></dd>
+
+                <dt class="col-md-6 fs-5">Upcoming rentals: </dt>
+                <dd class="col-md-6 fs-5"><span id="upcomingRentals">@ViewBag.UpcomingRentals</span></dd>
+
+                <dt class="col-md-6 fs-5">Ongoing rentals: </dt>
+                <dd class="col-md-6 fs-5"><span id="ongoingRentals">@ViewBag.OngoingRentals</span></dd>
+
+                <dt class="col-md-6 fs-5">Completed rentals: </dt>
+                <dd class="col-md-6 fs-5"><span id="completedRentals">@ViewBag.CompletedRentals</span></dd>
+
+                <dt class="col-md-6 fs-5">Active cars: </dt>
+                <dd class="col-md-6 fs-5"><span id="activeCars">@ViewBag.ActiveCars</span></dd>
+            </dl>
+        </div>
+    </div>
+
+
+</main>
+
+
+@* <div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <p>Here the admin can see some useful statistics for the site like total revenue, number of total rentals, number of current rentals, number of customers, etc.</p>
+    <a class="btn btn-primary" asp-controller="User" asp-action="Index">Users</a>
+    <a class="btn btn-primary" asp-controller="Car" asp-action="Index">Cars</a>
+    <a class="btn btn-primary" asp-controller="Rental" asp-action="Index">Rentals</a>
+    <a class="btn btn-primary" asp-controller="Log" asp-action="Index">Logs</a>
+
+    <h6>Total revenue: @ViewBag.Revenue kr</h6>
+    <h6>Registered users: @ViewBag.Users</h6>
+</div> *@
+
+

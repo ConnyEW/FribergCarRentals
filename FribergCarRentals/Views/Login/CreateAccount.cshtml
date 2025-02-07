@@ -1,0 +1,59 @@
+﻿@model FribergCarRentals.ViewModels.CreateUserViewModel
+
+
+@section BodyScripts {
+    <script src="~/js/passwordMatch.js"></script>
+}
+
+
+<main class="container d-flex flex-grow-1 justify-content-center align-items-center my-5 ">
+    <div class="container login">
+        <div class="row">
+            <div>
+                <h6 class="display-6">New Account</h6>
+            </div>
+            <div>
+                <form id="passwordForm" asp-action="CreateAccount" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+                    <div class="form-group">
+                        <h5 class="mt-2">First name</h5>
+                        <input asp-for="FirstName" class="input-text"/>
+                        <span asp-validation-for="FirstName" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mt-2">Last name</h5>
+                        <input asp-for="LastName" class="input-text" />
+                        <span asp-validation-for="LastName" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mt-2">Phone number</h5>
+                        <input asp-for="PhoneNumber" class="input-text" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mt-2">Email</h5>
+                        <input asp-for="Email" class="input-text" />
+                        <span asp-validation-for="Email" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mt-2">Password</h5>
+                        <input id="password" type="password" asp-for="Password" class="input-password" />
+                        <span asp-validation-for="Password" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="mt-2">Repeat password</h5>
+                        <input id="passwordRepeat" type="password" class="input-password" />
+                        <span id="passwordRepeatMessage" class="text-danger d-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-standard btn-positive w-50" />
+                    </div>
+                    <div>
+                        <a class="btn btn-standard btn-negative w-50" asp-action="Index">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

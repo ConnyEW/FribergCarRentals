@@ -1,0 +1,31 @@
+﻿@model FribergCarRentals.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+
+<main class="container d-flex flex-grow-1 justify-content-center align-items-center my-5 ">
+    <div class="container login">
+        <div class="row">
+            <div>
+                <h6 class="display-6">Admin Login</h6>
+            </div>
+            <div>
+                <form asp-action="LogIn" method="post">
+                    @Html.AntiForgeryToken()
+                    <h5 class="mt-2">Email</h5>
+                    <input asp-for="Email" class="input-text w-100">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <h5 class="mt-2">Password</h5>
+                    <input asp-for="Password" class="input-password w-100">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div>
+                        <button type="submit" class="btn btn-standard w-100 my-4 mx-auto">Log In</button>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+

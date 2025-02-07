@@ -1,0 +1,72 @@
+﻿@using FribergCarRentals.Enums
+@using FribergCarRentals.Helpers
+@model FribergCarRentals.ViewModels.RentalViewModel
+
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Rental details</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 col-sm-8">
+            <dl class="row">
+                <dt class="col-sm-4">Rental ID:</dt>
+                <dd class="col-sm-8">@Model.RentalId</dd>
+
+                <dt class="col-sm-4">Email:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt class="col-sm-4">Car:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.CarName)</dd>
+
+                <dt class="col-sm-4">Rental status:</dt>
+                <dd class="col-sm-8">@Model.RentalStatus.GetDisplayName()</dd>
+
+                <dt class="col-sm-4">Start date:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.RentalStart)</dd>
+
+                <dt class="col-sm-4">End date:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.RentalEnd)</dd>
+
+                <dt class="col-sm-4">Price:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+
+                <dt class="col-sm-4">Is completed:</dt>
+                <dd class="col-sm-8">@(Model.IsRentalComplete ? "Yes" : "No")</dd>
+
+                @if (Model.IsRentalComplete)
+                {
+                    <dt class="col-sm-4">Completion date:</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.CompletionDate)</dd>
+                }
+            </dl>
+
+            @if (Model.RentalStatus == RentalStatus.Pending || Model.RentalStatus == RentalStatus.InProgress)
+            {
+                <div class="row">
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <a asp-action="ProgressRental" asp-route-id="@Model.RentalId" class="btn btn-standard btn-positive fs-6 w-100">Progress</a>
+                    </div>
+                </div>
+            }
+
+            @if (Model.RentalStatus == RentalStatus.Pending)
+            {
+                <div class="row">
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <a asp-action="CancelRental" asp-route-id="@Model.RentalId" class="btn btn-standard btn-negative fs-6 w-100">Cancel</a>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-action="Index" class="btn btn-standard fs-6 w-100">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
