@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FribergCarRentals.ViewModels.LogViewModel>
+
+
+<main class="main-content container my-5">
+
+    <div>
+        <h2 class="content-title display-2">Logs</h2>
+        <hr class="content-hr">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="User" class="btn btn-standard fs-6 w-100">Users</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="List" asp-controller="Admin" class="btn btn-standard fs-6 w-100">Admins</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Rental" class="btn btn-standard fs-6 w-100">Rentals</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Car" class="btn btn-standard fs-6 w-100">Cars</a>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center">
+            <a asp-action="Index" asp-controller="Log" class="btn btn-standard fs-6 w-100">Logs</a>
+        </div>
+    </div>
+
+    <hr class="content-hr">
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        LogId
+                    </th>
+                    <th>
+                        Log
+                    </th>
+                    <th>
+                        <div class="d-flex">
+                            <a asp-action="Index" asp-route-sortOrder="dateDesc" class="text-link px-1">&#x2193;</a> Date <a asp-action="Index" asp-route-sortOrder="dateAsc" class="text-link px-1">&#x2191;</a>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="align-items-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogText)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
