@@ -29,25 +29,25 @@ namespace FribergCarRentals.Controllers
                 ModelState.AddModelError("", "Login attempt failed.");
                 return View("Index", loginVM);
             }
-
-            // Valid input format
-            if (await loginService.ValidateUserLoginAsync(loginVM.Email, loginVM.Password))
+            if (!await loginService.ValidateUserLoginAsync(loginVM.Email, loginVM.Password))
             {
-                //// Login successful -> redirect
-                // Fetch user ID from email
-                var user = await loginService.GetUserByEmailAsync(loginVM.Email);
-                if (user == null) return RedirectToAction("Error", "Home");
-                loginVM.UserId = user.UserId;
-
-                // Update LastLogin()
-                await loginService.UpdateLastLoginAsync(loginVM.UserId);
-
-                // Set state variables
-                ClearUserSession();
-                HttpContext.Session.SetString("UserEmail", loginVM.Email);
-                HttpContext.Session.SetInt32("UserId", loginVM.UserId);
+                ModelState.AddModelError("", "Login failed: invalid details.");
+                return View("Index", loginVM);
             }
 
+            //// Login successful -> redirect
+            // Fetch user ID from email
+            var user = await loginService.GetUserByEmailAsync(loginVM.Email);
+            if (user == null) return RedirectToAction("Error", "Home");
+            loginVM.UserId = user.UserId;
+
+            // Update LastLogin()
+            await loginService.UpdateLastLoginAsync(loginVM.UserId);
+
+            // Set state variables
+            ClearUserSession();
+            HttpContext.Session.SetString("UserEmail", loginVM.Email);
+            HttpContext.Session.SetInt32("UserId", loginVM.UserId);
             // Check if user was redirected from RentCar (which saves rental data temporarily in session)
             if (HttpContext.Session.GetInt32("CarId") != null)
             {
