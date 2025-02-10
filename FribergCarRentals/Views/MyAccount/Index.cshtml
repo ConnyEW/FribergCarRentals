@@ -115,7 +115,7 @@
     }
 
     <h5>Past rentals</h5>
-    @if (Model.Rentals != null && Model.Rentals.Any(r => r.RentalStatus == RentalStatus.Completed))
+    @if (Model.Rentals != null && Model.Rentals.Any(r => r.RentalStatus == RentalStatus.Completed || r.RentalStatus == RentalStatus.Cancelled))
     {
         <div class="table-responsive">
             <table class="table table-striped">
