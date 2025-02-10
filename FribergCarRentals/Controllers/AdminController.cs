@@ -41,6 +41,7 @@ namespace FribergCarRentals.Controllers
                 var admin = await loginService.GetAdminByEmailAsync(loginVM.Email);
                 if (admin == null) return RedirectToAction("Error", "Home");
                 loginVM.Email = admin.Email;
+                loginVM.AdminId = admin.AdminId;
 
                 // Set state variables
                 HttpContext.Session.Remove("UserId");
@@ -152,7 +153,16 @@ namespace FribergCarRentals.Controllers
         public async Task<IActionResult> EditAsync(int id)
         {
             var admin = await adminService.GetAdminAsync(id);
-            if (admin == null) return RedirectToAction("Error", "Home");
+            var sessionId = HttpContext.Session.GetInt32("AdminId") ?? 0;
+            var sessionAdmin = await adminService.GetAdminAsync(sessionId);
+            if (admin == null || sessionAdmin == null) return RedirectToAction("Error", "Home");
+
+            if (!sessionAdmin.IsSuperAdmin)
+            {
+                TempData["ToastMessage"] = "Only SuperAdmins can edit admins.";
+                TempData["ToastClass"] = "negative";
+                return RedirectToAction("List");
+            }
 
             var adminVM = new AdminViewModel
             {

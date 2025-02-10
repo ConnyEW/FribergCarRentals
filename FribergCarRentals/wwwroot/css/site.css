@@ -132,7 +132,6 @@ body {
 
 .lp-img-container {
     position: relative;
-    align-content: center;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -305,61 +304,6 @@ body {
         width: 70%;
     }
 }
-
-/* Create account/login overlay */
-
-#login-overlay {
-    margin: 0 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 5;
-    opacity: 1;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out;
-}
-
-#log-in {
-    padding: 20% 1rem;
-    width: 30%;
-    background-color: #E1E6E9DD;
-    transition: background-color 0.3s ease-in-out;
-    z-index: 6;
-    border-top-right-radius: 20%;
-    border-bottom-right-radius: 20%;
-}
-
-    #log-in:hover {
-        background-color: #E1E6E9EE;
-        cursor: pointer;
-    }
-
-#create-account {
-    padding: 20% 1rem;
-    width: 30%;
-    background-color: #b5c1c8DD;
-    transition: background-color 0.3s ease-in-out;
-    z-index: 6;
-    border-top-left-radius: 20%;
-    border-bottom-left-radius: 20%;
-}
-
-    #create-account:hover {
-        background-color: #b5c1c8EE;
-        cursor: pointer;
-    }
-
-#close-overlay {
-    z-index: 7;
-    color: var(--highlight-dark);
-    transition: transform 0.2s ease-in-out;
-}
-
-    #close-overlay:hover {
-        transform: scale(1.2, 1.2);
-        cursor: pointer;
-    }
 
 /* Login page */
 
